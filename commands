@@ -1,0 +1,21 @@
+# ----- Get interactive node -----
+
+# Grab 8 cores on a shared node - note cpus-per-task set to 8
+srun --partition=shared --pty --account=use300 --nodes=1 --ntasks-per-node=1 --cpus-per-task=8 -t 01:00:00 --wait=0 --export=ALL /bin/bash
+
+# Grab a dedicated compute node - note cpus-per-task set to 128
+srun --partition=compute --pty --account=use300 --nodes=1 --ntasks-per-node=1 --cpus-per-task=128 -t 01:00:00 --wait=0 --export=ALL /bin/bash
+
+# ----- Run examples -----
+
+# Simple loop example with various core counts and problem sizes
+./simple_loop_serial 100000
+./simple_loop_serial 1000000
+./simple_loop_serial 10000000
+export OMP_NUM_THREADS=4; ./simple_loop_omp 100000
+export OMP_NUM_THREADS=8; ./simple_loop_omp 1000000
+export OMP_NUM_THREADS=16; ./simple_loop_omp 10000000
+
+# Reduction loop examples with various core counts
+export OMP_NUM_THREADS=4; ./reduction_loop_omp 100000000
+export OMP_NUM_THREADS=8; ./reduction_loop2_omp 100000000
