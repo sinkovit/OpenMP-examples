@@ -54,7 +54,7 @@ int main(int argc, char **argv)
 
   // Apply f1() to array a and store in b
   gettimeofday(&tv_start_loop, NULL);
-  #pragma omp parallel for
+#pragma omp parallel for
   for (int i=0; i<n; i++) {
     b[i] = f1(a[i]);
   }
