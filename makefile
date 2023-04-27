@@ -16,7 +16,10 @@ reduction_loop2_omp: reduction_loop2_omp.o
 nested_loops_omp: nested_loops_omp.o
 	$(CC) $(CFLAGS) $(OMPFLAGS) -o nested_loops_omp nested_loops_omp.o -lm
 
-all: simple_loop_serial simple_loop_omp reduction_loop_omp reduction_loop2_omp nested_loops_omp
+collapse_omp: collapse_omp.o
+	$(CC) $(CFLAGS) $(OMPFLAGS) -o collapse_omp collapse_omp.o -lm
+
+all: simple_loop_serial simple_loop_omp reduction_loop_omp reduction_loop2_omp nested_loops_omp collapse_omp
 
 clean:
-	rm -f *.o simple_loop_serial simple_loop_omp reduction_loop_omp reduction_loop2_omp nested_loops_omp
+	rm -f *.o simple_loop_serial simple_loop_omp reduction_loop_omp reduction_loop2_omp nested_loops_omp collapse_omp
